@@ -15,7 +15,6 @@
     "lint:fix": "yarn lint --fix",
     "lint": "eslint --config .eslintrc --cache --quiet ./src/**/*.js ./src/*.js"
   },
-
   "browserslist": {
     "production": [
       ">0.2%",
