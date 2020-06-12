@@ -1,5 +1,5 @@
-import {$log, ServerLoader} from "@tsed/common";
-import {Server} from "./Server";
+import { $log, ServerLoader } from "@tsed/common";
+import { Server } from "./Server";
 
 async function bootstrap() {
   try {

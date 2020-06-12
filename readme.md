@@ -8,6 +8,7 @@ See [Ts.ED](https://tsed.io) project for more information.
 ## Features
 
 - React + Create React App
+- TypeORM Included with sample @EntityRepository
 - Lerna && Yarn workspaces - monorepo manager
 - PM2 - node process manager
 - Docker and Docker compose
@@ -46,12 +47,6 @@ To checkout another version just replace `v5.18.1` by the desired version.
 yarn install
 ```
 
-## Run
-
-```
-yarn start
-```
-
 ## Starting a new project
 
 Replace all reference `@project` by your project name. `@project` key are referenced in theses files:
@@ -59,6 +54,20 @@ Replace all reference `@project` by your project name. `@project` key are refere
 - `package.json`,
 - `client/package.json`,
 - `server/package.json`
+
+Open Server.ts and modify the SQL Server Settings, if you are using some other detabase then please change the driver details and database details in the TYPEORM section. Pleaes make sure that the table Employee exists with the columns(id,empfname,emplname,createdDate,lastModifiedDate) as specified in the entities/Employee.ts
+
+## Run
+
+```
+yarn start
+```
+
+## React UI in the Browser
+
+```
+Open http://localhost:3000 and you will see TOTAL USERS=<No of records in the employee table> in the server logs.
+```
 
 ## Contributing
 
