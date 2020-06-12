@@ -11,9 +11,6 @@ import * as compress from "compression";
 import * as cookieParser from "cookie-parser";
 import * as methodOverride from "method-override";
 import * as path from "path";
-import * as dotenv from "dotenv";
-dotenv.config({ path: "./../config" });
-import * as env from "env-var";
 import "@tsed/typeorm";
 import "reflect-metadata";
 
