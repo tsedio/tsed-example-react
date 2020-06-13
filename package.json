@@ -54,7 +54,7 @@
   },
   "lint-staged": {
     "packages/client/**/*.{js,vue}": [
-      "cd packages/client && yarn lint:fix &&  yarn prettier",
+      "cd packages/client && yarn lint:fix && yarn prettier",
       "git add"
     ],
     "packages/server/**/*.{ts}": [

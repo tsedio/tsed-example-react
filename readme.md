@@ -8,7 +8,7 @@ See [Ts.ED](https://tsed.io) project for more information.
 ## Features
 
 - React + Create React App
-- TypeORM Included with sample @EntityRepository
+- TypeORM Included with sample @EntityRepository (Database: MsSql)
 - Lerna && Yarn workspaces - monorepo manager
 - PM2 - node process manager
 - Docker and Docker compose
