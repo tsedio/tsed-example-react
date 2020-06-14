@@ -60,12 +60,9 @@ const clientDir = path.join(rootDir, "../../client/build");
   typeorm: [
     {
       name: "default",
-      type: "mssql",
-      host: "localhost",
-      port: 1433,
-      username: "USERNAME",
-      password: "PASSWORd",
-      database: "DB_NAME",
+      type: "sqljs",
+      location: "./db/employee_sqljs.db",
+      logging: ["query", "schema"],
       entities: [`${rootDir}/entities/*{.ts,.js}`],
       migrations: [`${rootDir}/migrations/*{.ts,.js}`],
       subscribers: [`${rootDir}/subscribers/*{.ts,.js}`],

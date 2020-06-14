@@ -1,17 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import HttpClient from './utils/HttpClient';
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import HttpClient from "./utils/HttpClient";
 
 function useCalendars() {
   const [calendars, setCalendar] = useState([]);
 
   useEffect(() => {
-    HttpClient
-      .get('/rest/calendars')
-      .then((calendars) => {
-        setCalendar(calendars);
-      });
+    HttpClient.get("/rest/employees").then((calendars) => {
+      setCalendar(calendars);
+    });
   }, []);
 
   return [calendars, setCalendar];
@@ -23,7 +21,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo"/>
+        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -40,16 +38,14 @@ function App() {
 
         <table>
           <tbody>
-          {
-            calendars.map((calendar) => {
+            {calendars.map((calendar) => {
               return (
                 <tr key={calendar.id}>
                   <td>{calendar.id}</td>
                   <td>{calendar.name}</td>
                 </tr>
               );
-            })
-          }
+            })}
           </tbody>
         </table>
       </header>
