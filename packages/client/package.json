@@ -2,11 +2,6 @@
   "name": "@project/client",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -15,6 +10,14 @@
     "lint:fix": "yarn lint --fix",
     "lint": "eslint --config .eslintrc --cache --quiet ./src/**/*.js ./src/*.js",
     "prettier": "prettier --write \"{,!(node_modules|dist|build|coverage)/**/}*.{js,jsx,ts,tsx,json}\""
+  },
+  "dependencies": {
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-scripts": "3.2.0"
+  },
+  "devDependencies": {
+    "lint-staged": "10.2.10"
   },
   "browserslist": {
     "production": [
@@ -28,5 +31,11 @@
       "last 1 safari version"
     ]
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)."
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "yarn lint:fix",
+      "yarn prettier"
+    ]
+  }
 }

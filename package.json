@@ -19,6 +19,7 @@
     "build:client": "lerna run build --scope=@project/client --stream",
     "build:server": "lerna run build --scope=@project/server --stream",
     "start": "lerna run start --stream --parallel",
+    "start:database": "docker-compose up -d database",
     "start:client": "lerna run start --scope=@project/client --stream",
     "start:server": "lerna run start --scope=@project/server --stream",
     "start:prod": "cross-env NODE_ENV=production pm2-docker --raw processes.config.js --no-deamon",
@@ -32,7 +33,6 @@
   },
   "devDependencies": {
     "husky": "4.2.3",
-    "lint-staged": "10.0.8",
     "cross-env": "7.0.2"
   },
   "workspaces": {
@@ -48,18 +48,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents",
       "post-commit": "git update-index --again"
     }
-  },
-  "lint-staged": {
-    "packages/client/**/*.{js,vue}": [
-      "cd packages/client && yarn lint:fix && yarn prettier",
-      "git add"
-    ],
-    "packages/server/**/*.{ts}": [
-      "cd packages/server && yarn lint:fix && yarn prettier",
-      "git add"
-    ]
   }
 }

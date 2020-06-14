@@ -1,7 +1,7 @@
 version: '3.5'
 
 services:
-  postgres:
+  database:
     image: postgres:11
     container_name: postgres_container
     environment:
@@ -9,11 +9,11 @@ services:
       POSTGRES_PASSWORD: changeme
       PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+      - database:/data/postgres
     ports:
       - "5432:5432"
     networks:
-      - postgres
+      - database
     restart: unless-stopped
 
   pgadmin:
@@ -28,7 +28,7 @@ services:
       - "5050:80"
     restart: unless-stopped
     networks:
-      - postgres
+      - database
 
   server:
     build:
@@ -47,19 +47,19 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: changeme
     depends_on:
-      - postgres
+      - database
     ports:
       - "8083:8083"
     stdin_open: true  # -i
     tty: true         # -t
     networks:
-      - postgres
+      - database
 
 networks:
-  postgres:
+  database:
     driver: bridge
 
 volumes:
-  postgres:
+  database:
   pgadmin:
 

@@ -1,29 +1,27 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Property } from "@tsed/common";
+import {Property} from "@tsed/common";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity("Employee")
+@Entity({name: "employees"})
 export class Employee {
   @PrimaryGeneratedColumn()
-  @Property()
-  id: number;
+  id: string;
 
-  @Column({
-    name: "empfname",
-  })
   @Property()
-  fName: string;
-
-  @Column({
-    name: "emplname",
-  })
-  @Property()
-  lName: string;
-
   @Column()
-  @Property()
-  createdDate: Date;
+  name: string;
 
-  @Column()
   @Property()
-  lastModifiedDate: Date;
+  @Column()
+  designation: string;
+
+  @Property()
+  @Column()
+  salary: number;
+
+  constructor({id, name, designation, salary}: any = {}) {
+    this.id = id;
+    this.name = name;
+    this.designation = designation;
+    this.salary = salary;
+  }
 }

@@ -49,17 +49,18 @@ yarn install
 
 ## Starting a new project
 
-Replace all reference `@project` by your project name. `@project` key are referenced in theses files:
+Replace all reference `@project` by your project name. `@project` key are referenced in these files:
 
 - `package.json`,
 - `client/package.json`,
 - `server/package.json`
 
-Open Server.ts and modify the SQL Server Settings, if you are using some other detabase then please change the driver details and database details in the TYPEORM section. Pleaes make sure that the table Employee exists with the columns(id,empfname,emplname,createdDate,lastModifiedDate) as specified in the entities/Employee.ts
+Open Server.ts and modify the SQL Server Settings, if you are using some other database then please change the driver details and database details in the TYPEORM section. Pleaes make sure that the table Employee exists with the columns(id,empfname,emplname,createdDate,lastModifiedDate) as specified in the entities/Employee.ts
 
 ## Run
 
 ```
+docker-compose up -d database
 yarn start
 ```
 

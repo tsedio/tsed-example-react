@@ -1,4 +1,4 @@
-import {PlatformTest} from "@tsed/common";
+import { PlatformTest } from "@tsed/common";
 import * as Sinon from "sinon";
 import { expect } from "chai";
 import { NotFound } from "@tsed/exceptions";

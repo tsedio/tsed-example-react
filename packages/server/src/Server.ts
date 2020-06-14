@@ -1,5 +1,5 @@
-import {Configuration, Inject, PlatformApplication} from "@tsed/common";
-import {GlobalAcceptMimesMiddleware} from "@tsed/platform-express";
+import { Configuration, Inject, PlatformApplication } from "@tsed/common";
+import { GlobalAcceptMimesMiddleware } from "@tsed/platform-express";
 import "@tsed/swagger";
 import "@tsed/typeorm";
 import * as bodyParser from "body-parser";
@@ -27,30 +27,30 @@ const clientDir = path.join(rootDir, "../../client/build");
       "headers",
       "query",
       "params",
-      "duration"
-    ]
+      "duration",
+    ],
   },
   mount: {
     "/rest": [
-      `${rootDir}/controllers/**/*.ts` // Automatic Import, /!\ doesn"t works with webpack/jest, use  require.context() or manual import instead
-    ]
+      `${rootDir}/controllers/**/*.ts`, // Automatic Import, /!\ doesn"t works with webpack/jest, use  require.context() or manual import instead
+    ],
   },
   componentsScan: [
     "${rootDir}/middlewares/**/*.ts",
     "${rootDir}/services/**/*.ts",
     "${rootDir}/converters/**/*.ts",
-    "${rootDir}/repositories/**/*.ts"
+    "${rootDir}/repositories/**/*.ts",
   ],
   swagger: [
     {
-      path: "/api-docs"
-    }
+      path: "/api-docs",
+    },
   ],
   calendar: {
-    token: true
+    token: true,
   },
   statics: {
-    "/": clientDir
+    "/": clientDir,
   },
   typeorm: [
     {
@@ -63,17 +63,11 @@ const clientDir = path.join(rootDir, "../../client/build");
       database: process.env.POSTGRES_DB || "postgres",
       logging: false,
       synchronize: true,
-      entities: [
-        `${rootDir}/entities/*{.ts,.js}`
-      ],
-      migrations: [
-        `${rootDir}/migrations/*{.ts,.js}`
-      ],
-      subscribers: [
-        `${rootDir}/subscriber/*{.ts,.js}`
-      ]
-    }
-  ]
+      entities: [`${rootDir}/entities/*{.ts,.js}`],
+      migrations: [`${rootDir}/migrations/*{.ts,.js}`],
+      subscribers: [`${rootDir}/subscriber/*{.ts,.js}`],
+    },
+  ],
 })
 export class Server {
   @Inject()
@@ -92,7 +86,7 @@ export class Server {
       .use(bodyParser.json())
       .use(
         bodyParser.urlencoded({
-          extended: true
+          extended: true,
         })
       );
 

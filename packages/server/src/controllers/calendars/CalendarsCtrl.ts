@@ -1,19 +1,23 @@
 import {
   BodyParams,
+  Context,
   Controller,
   Delete,
   Get,
+  Inject,
   PathParams,
   Post,
   Put,
   Required,
   Status,
+  UseBefore
 } from "@tsed/common";
-import { Returns, ReturnsArray } from "@tsed/swagger";
-import { NotFound } from "@tsed/exceptions";
-import { Calendar, CreateCalendar } from "../../models/Calendar";
-import { CalendarsService } from "../../services/calendars/CalendarsService";
-import { EventsCtrl } from "../events/EventsCtrl";
+import {BadRequest, NotFound} from "@tsed/exceptions";
+import {Description, Returns, ReturnsArray} from "@tsed/swagger";
+import {Calendar} from "../../entities/Calendar";
+import {CheckCalendarIdMiddleware} from "../../middlewares/CheckCalendarIdMiddleware";
+import CalendarsRepository from "../../repositories/CalendarsRepository";
+import {EventsCtrl} from "../events/EventsCtrl";
 
 /**
  * Add @Controller annotation to declare your class as Router controller.
@@ -25,15 +29,17 @@ import { EventsCtrl } from "../events/EventsCtrl";
  */
 @Controller({
   path: "/calendars",
-  children: [EventsCtrl],
+  children: [EventsCtrl]
 })
 export class CalendarsCtrl {
-  constructor(private calendarsService: CalendarsService) {}
+  @Inject()
+  repository: CalendarsRepository;
 
   @Get("/:id")
   @Returns(Calendar)
+  @Description("Return a calendar from his given id")
   async get(@Required() @PathParams("id") id: string): Promise<Calendar> {
-    const calendar = await this.calendarsService.find(id);
+    const calendar = await this.repository.findOne({id});
 
     if (calendar) {
       return calendar;
@@ -45,28 +51,41 @@ export class CalendarsCtrl {
   @Put("/")
   @Status(201)
   @Returns(Calendar)
-  save(@BodyParams() calendar: CreateCalendar): Promise<Calendar> {
-    return this.calendarsService.create(calendar);
+  save(@BodyParams() calendar: Calendar): Promise<Calendar> {
+    return this.repository.save(calendar);
   }
 
   @Post("/:id")
   @Returns(Calendar)
   async update(
     @PathParams("id") @Required() id: string,
-    @BodyParams() @Required() calendar: CreateCalendar
+    @BodyParams() @Required() calendar: Calendar
   ): Promise<Calendar> {
-    return this.calendarsService.update({ id, ...calendar });
+    if (id !== calendar.id) {
+      throw new BadRequest("Resource ID mismatch with payload");
+    }
+
+    return this.repository.save(calendar);
   }
 
   @Delete("/")
   @Status(204)
-  async remove(@BodyParams("id") @Required() id: string): Promise<void> {
-    await this.calendarsService.remove(id);
+  @UseBefore(CheckCalendarIdMiddleware)
+  async remove(@BodyParams("id") @Required() id: string,
+               @Context() context: Context): Promise<void> {
+
+    const calendar: Calendar = context.get("calendar");
+
+    if (!calendar) {
+      throw new NotFound("Calendar id not found");
+    }
+
+    await this.repository.remove(calendar);
   }
 
   @Get("/")
   @ReturnsArray(Calendar)
-  async getAllCalendars() {
-    return this.calendarsService.query();
+  async getAllCalendars(): Promise<Calendar[]> {
+    return this.repository.find();
   }
 }

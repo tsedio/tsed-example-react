@@ -1,4 +1,4 @@
-import {PlatformTest} from "@tsed/common";
+import { PlatformTest } from "@tsed/common";
 import { EventsCtrl } from "./EventsCtrl";
 import { expect } from "chai";
 
