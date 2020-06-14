@@ -14,6 +14,7 @@
     "test:server": "lerna run test --scope=@project/server",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix",
+    "prettier": "lerna run prettier",
     "build": "lerna run build --stream",
     "build:client": "lerna run build --scope=@project/client --stream",
     "build:server": "lerna run build --scope=@project/server --stream",
@@ -53,11 +54,11 @@
   },
   "lint-staged": {
     "packages/client/**/*.{js,vue}": [
-      "cd packages/client && yarn lint:fix",
+      "cd packages/client && yarn lint:fix && yarn prettier",
       "git add"
     ],
     "packages/server/**/*.{ts}": [
-      "cd packages/server && yarn lint:fix",
+      "cd packages/server && yarn lint:fix && yarn prettier",
       "git add"
     ]
   }

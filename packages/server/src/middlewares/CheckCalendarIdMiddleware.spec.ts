@@ -1,25 +1,30 @@
-import {TestContext} from "@tsed/testing";
+import {PlatformTest} from "@tsed/common";
 import * as Sinon from "sinon";
-import {expect} from "chai";
-import {NotFound} from "@tsed/exceptions";
-import {CalendarsService} from "../services/calendars/CalendarsService";
-import {CheckCalendarIdMiddleware} from "./CheckCalendarIdMiddleware";
+import { expect } from "chai";
+import { NotFound } from "@tsed/exceptions";
+import { CalendarsService } from "../services/calendars/CalendarsService";
+import { CheckCalendarIdMiddleware } from "./CheckCalendarIdMiddleware";
 
 describe("CheckCalendarIdMiddleware", () => {
-  describe("when calendar isn\'t found", () => {
-    before(() => TestContext.create());
-    after(() => TestContext.reset());
+  describe("when calendar isn't found", () => {
+    before(() => PlatformTest.create());
+    after(() => PlatformTest.reset());
 
     it("should do nothing when calendar is found", async () => {
       // GIVEN
       const calendarsService = {
-        find: Sinon.stub().resolves({})
+        find: Sinon.stub().resolves({}),
       };
 
-      const middleware: CheckCalendarIdMiddleware = await TestContext.invoke(CheckCalendarIdMiddleware, [{
-        provide: CalendarsService,
-        use: calendarsService
-      }]);
+      const middleware: CheckCalendarIdMiddleware = await PlatformTest.invoke(
+        CheckCalendarIdMiddleware,
+        [
+          {
+            token: CalendarsService,
+            use: calendarsService,
+          },
+        ]
+      );
 
       // WHEN
       const result = await middleware.use("1");
@@ -31,13 +36,18 @@ describe("CheckCalendarIdMiddleware", () => {
     it("should throw an error", async () => {
       // GIVEN
       const calendarsService = {
-        find: Sinon.stub().resolves()
+        find: Sinon.stub().resolves(),
       };
 
-      const middleware: CheckCalendarIdMiddleware = await TestContext.invoke(CheckCalendarIdMiddleware, [{
-        provide: CalendarsService,
-        use: calendarsService
-      }]);
+      const middleware: CheckCalendarIdMiddleware = await PlatformTest.invoke(
+        CheckCalendarIdMiddleware,
+        [
+          {
+            token: CalendarsService,
+            use: calendarsService,
+          },
+        ]
+      );
 
       // WHEN
       let actualError;
