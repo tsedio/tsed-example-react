@@ -14,12 +14,15 @@ describe("CalendarCtrl", () => {
     describe("without IOC", () => {
       it("should do something", () => {
         const calendarsCtrl = new CalendarsCtrl(
-          new CalendarsService(new MemoryStorage(),  new EmployeeRepository()  ,  new TypeORMService())
+          new CalendarsService(
+            new MemoryStorage(),
+            new EmployeeRepository(),
+            new TypeORMService()
+          )
         );
         calendarsCtrl.should.an.instanceof(CalendarsCtrl);
       });
     });
-
 
     describe("via TestContext to mock other service", () => {
       before(() => TestContext.create());

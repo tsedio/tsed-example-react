@@ -16,7 +16,6 @@
     "lint": "eslint --config .eslintrc --cache --quiet ./src/**/*.js ./src/*.js",
     "prettier": "prettier --write \"{,!(node_modules|dist|build|coverage)/**/}*.{js,jsx,ts,tsx,json}\""
   },
-
   "browserslist": {
     "production": [
       ">0.2%",

@@ -1,29 +1,20 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Property } from "@tsed/common";
 
-@Entity("Employee")
+@Entity({ name: "employees" })
 export class Employee {
   @PrimaryGeneratedColumn()
-  @Property()
   id: number;
 
-  @Column({
-    name: "empfname",
-  })
   @Property()
-  fName: string;
-
-  @Column({
-    name: "emplname",
-  })
-  @Property()
-  lName: string;
-
   @Column()
-  @Property()
-  createdDate: Date;
+  name: string;
 
-  @Column()
   @Property()
-  lastModifiedDate: Date;
+  @Column()
+  designation: string;
+
+  @Property()
+  @Column()
+  salary: number;
 }

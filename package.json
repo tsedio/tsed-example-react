@@ -53,12 +53,16 @@
     }
   },
   "lint-staged": {
-    "packages/client/**/*.{js,vue}": [
-      "cd packages/client && yarn lint:fix &&  yarn prettier",
+    "./../packages/client/**/*.{js,vue}": [
+      "cd packages/client",
+      "yarn lint:fix",
+      "yarn prettier",
       "git add"
     ],
-    "packages/server/**/*.{ts}": [
-      "cd packages/server && yarn lint:fix && yarn prettier",
+    "./../packages/server/**/*.{ts,js,.json}": [
+      "cd packages/client",
+      "yarn lint:fix",
+      "yarn prettier",
       "git add"
     ]
   }

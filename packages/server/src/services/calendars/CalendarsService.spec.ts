@@ -12,9 +12,13 @@ describe("CalendarsService", () => {
   describe("without IOC", () => {
     it("should do something", () => {
       /* new EmployeeRepository(), */
-      expect(new CalendarsService(new MemoryStorage(), new EmployeeRepository() ,  new TypeORMService())).to.be.an.instanceof(
-        CalendarsService
-      );
+      expect(
+        new CalendarsService(
+          new MemoryStorage(),
+          new EmployeeRepository(),
+          new TypeORMService()
+        )
+      ).to.be.an.instanceof(CalendarsService);
     });
   });
 
